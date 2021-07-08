@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hemobile/pages/login/login.dart';
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({Key? key, required String title}) : super(key: key);
+  LandingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,11 @@ class LandingPage extends StatelessWidget {
                         primary: Colors.red,
                         backgroundColor: Colors.white,
                       ),
-                      onPressed: () => Navigator.pushNamed(context, '/login'),
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        '/login',
+                        arguments: LoginInputType.Login,
+                      ),
                       child: Text('ENTRAR'),
                     ),
                   ),
@@ -58,7 +63,11 @@ class LandingPage extends StatelessWidget {
                         primary: Colors.white,
                         backgroundColor: Colors.red,
                       ),
-                      onPressed: () => Navigator.pushNamed(context, '/login'),
+                      onPressed: () => Navigator.pushNamed(
+                        context,
+                        '/login',
+                        arguments: LoginInputType.Register,
+                      ),
                       child: Text('CADASTRAR-SE'),
                     ),
                   ),
