@@ -91,7 +91,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   type: DashCardType.Light,
                   onPressed: () => Navigator.pushNamed(
                     context,
-                    '/demands',
+                    '/profile',
                   ),
                 ),
                 SizedBox(

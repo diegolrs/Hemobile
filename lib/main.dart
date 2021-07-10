@@ -4,7 +4,7 @@ import 'package:hemobile/models/user_model.dart';
 import 'package:hemobile/pages/dashboard/dashboard.dart';
 import 'package:hemobile/pages/history/history.dart';
 import 'package:hemobile/pages/landing.dart';
-import 'package:hemobile/pages/demands.dart';
+import 'package:hemobile/pages/demands/demands.dart';
 import 'package:hemobile/pages/login/login.dart';
 import 'package:hemobile/pages/profile/profile.dart';
 import 'package:hemobile/repositories/user_repository.dart';
