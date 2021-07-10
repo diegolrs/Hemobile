@@ -7,6 +7,7 @@ import 'package:hemobile/pages/landing.dart';
 import 'package:hemobile/pages/demands/demands.dart';
 import 'package:hemobile/pages/login/login.dart';
 import 'package:hemobile/pages/profile/profile.dart';
+import 'package:hemobile/pages/schedules/schedules.dart';
 import 'package:hemobile/repositories/user_repository.dart';
 
 void main() {
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
         '/profile': (BuildContext context) => ProfilePage(title: 'Perfil'),
         '/demands': (BuildContext context) => DemandsPage(title: 'Demandas'),
         '/history': (BuildContext context) => HistoryPage(title: 'Histórico'),
+        '/schedules': (BuildContext context) => SchedulesPage(),
       },
     );
   }

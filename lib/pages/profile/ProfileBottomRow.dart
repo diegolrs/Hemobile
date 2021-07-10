@@ -12,7 +12,7 @@ class ProfileBottomRow extends StatelessWidget {
       children: [
         ProfileButton(
           text: 'Agendamentos',
-          route: '/agendamentos',
+          route: '/schedules',
           icon: Icons.document_scanner,
         ),
         SizedBox(width: 30),
