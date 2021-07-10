@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hemobile/configs/constants.dart';
 import 'package:hemobile/models/user_model.dart';
-import 'package:hemobile/pages/dashboard.dart';
+import 'package:hemobile/pages/dashboard/dashboard.dart';
+import 'package:hemobile/pages/history/history.dart';
 import 'package:hemobile/pages/landing.dart';
-import 'package:hemobile/pages/list.dart';
+import 'package:hemobile/pages/demands.dart';
 import 'package:hemobile/pages/login/login.dart';
-import 'package:hemobile/pages/profile.dart';
+import 'package:hemobile/pages/profile/profile.dart';
 import 'package:hemobile/repositories/user_repository.dart';
 
 void main() {
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.red,
-        accentColor: Color.fromARGB(255, 144, 0, 0),
+        accentColor: kAccentColor,
         accentTextTheme: TextTheme(
           button: TextStyle(
             color: Colors.white,
@@ -30,12 +32,27 @@ class MyApp extends StatelessWidget {
         ),
         inputDecorationTheme: InputDecorationTheme(
           enabledBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(width: 2.0, color: Color.fromARGB(255, 144, 0, 0)),
+            borderSide: BorderSide(width: 2.0, color: kAccentColor),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide:
-                BorderSide(width: 2.0, color: Color.fromARGB(255, 144, 0, 0)),
+            borderSide: BorderSide(width: 2.0, color: kAccentColor),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            backgroundColor: MaterialStateProperty.all<Color>(kAccentColor),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+                side: BorderSide(
+                  width: 3,
+                  color: kAccentColor,
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -54,8 +71,8 @@ class MyApp extends StatelessWidget {
         '/dashboard': (BuildContext context) =>
             DashboardPage(title: 'Dashboard'),
         '/profile': (BuildContext context) => ProfilePage(title: 'Perfil'),
-        '/list': (BuildContext context) => ListPage(title: 'Demandas'),
-        '/history': (BuildContext context) => ListPage(title: 'Histórico'),
+        '/demands': (BuildContext context) => DemandsPage(title: 'Demandas'),
+        '/history': (BuildContext context) => HistoryPage(title: 'Histórico'),
       },
     );
   }

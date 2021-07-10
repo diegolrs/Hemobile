@@ -10,6 +10,18 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'History',
+        ),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).accentColor,
+        ),
+        shadowColor: Colors.transparent,
+      ),
+    );
+    ;
   }
 }
