@@ -1,6 +1,8 @@
-# hemobile
+# Hemobile
 
-A new Flutter project.
+A blood bank app.
+
+- [Also check the back-end repository](https://github.com/geraldofigueiredo/hemobile-backend)
 
 ## Getting Started
 
