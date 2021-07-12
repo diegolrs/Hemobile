@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ProfileCard extends StatelessWidget {
+  final String name;
+
   const ProfileCard({
     Key? key,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -38,7 +41,7 @@ class ProfileCard extends StatelessWidget {
           ),
           SizedBox(height: 30),
           Text(
-            'Nome do usuário',
+            name,
             style: TextStyle(
                 fontSize: 30, color: Colors.white, fontFamily: 'Comfortaa'),
           ),

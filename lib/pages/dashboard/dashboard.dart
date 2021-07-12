@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hemobile/models/user_model.dart';
 import 'package:hemobile/pages/dashboard/DashCard.dart';
+import 'package:localstorage/localstorage.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key, required String title}) : super(key: key);
@@ -9,8 +11,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  final LocalStorage _userStorage = new LocalStorage('user_data');
+
   @override
   Widget build(BuildContext context) {
+    final userStorage = _userStorage.getItem('user');
+    UserModel user = UserModel.fromJson(userStorage);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -37,7 +44,7 @@ class _DashboardPageState extends State<DashboardPage> {
             child: SizedBox(
               width: 900,
               child: Text(
-                'Olá usuário',
+                'Olá ${user.name}',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 40,
