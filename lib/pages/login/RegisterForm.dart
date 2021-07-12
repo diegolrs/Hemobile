@@ -54,7 +54,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           FormBuilderTextField(
             name: 'name',
-            decoration: InputDecoration(hintText: 'Jane Do'),
+            decoration: InputDecoration(hintText: 'Jane'),
           ),
           SizedBox(height: 20),
           SizedBox(
@@ -123,19 +123,6 @@ class _RegisterFormState extends State<RegisterForm> {
             decoration: InputDecoration(hintText: '111.111.111-11'),
           ),
           SizedBox(height: 20),
-          SizedBox(
-            width: 900,
-            height: 20,
-            child: Text(
-              'Numero de doador:',
-              textAlign: TextAlign.start,
-            ),
-          ),
-          FormBuilderTextField(
-            name: 'donorNumber',
-            decoration: InputDecoration(hintText: '31232131232'),
-          ),
-          SizedBox(height: 20),
           Container(
             width: 900,
             height: 50,
@@ -145,12 +132,12 @@ class _RegisterFormState extends State<RegisterForm> {
                 backgroundColor: Theme.of(context).accentColor,
               ),
               onPressed: () async {
-                debugPrint('logar');
+                debugPrint('registrar');
 
                 _registerFormKey.currentState!.save();
                 final formData = _registerFormKey.currentState!.value;
                 print(formData);
-
+                // formData['name'] = formData['userName'];
                 setState(() {
                   _loading = true;
                 });
@@ -161,11 +148,13 @@ class _RegisterFormState extends State<RegisterForm> {
                 )
                     .then(
                   (value) async {
+                    print('cadastrado com sucesso');
                     print(value);
-                    // await _userStorage.setItem('user', value.data);
+                    await _userStorage.setItem('user', value.data);
                     setState(() {
                       _loading = false;
                     });
+                    Navigator.pushNamed(context, '/dashboard');
                   },
                 ).onError(
                   (error, stackTrace) {

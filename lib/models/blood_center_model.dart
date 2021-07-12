@@ -1,7 +1,4 @@
-import 'package:hemobile/models/blood_types_enum.dart';
-
 class BloodCenterModel {
-  final BloodType bloodTypes;
   final String uuid;
   final String name;
   final String picture;
@@ -10,6 +7,18 @@ class BloodCenterModel {
   final int requested;
   final int collected;
 
-  BloodCenterModel(this.bloodTypes, this.uuid, this.name, this.picture,
-      this.address, this.phone, this.requested, this.collected);
+  BloodCenterModel(this.uuid, this.name, this.picture, this.address, this.phone,
+      this.requested, this.collected);
+
+  factory BloodCenterModel.fromJson(Map<String, dynamic> json) {
+    return BloodCenterModel(
+      json['uuid'],
+      json['name'],
+      json['picture'],
+      json['address'],
+      json['phone'],
+      json['requested'],
+      json['collected'],
+    );
+  }
 }

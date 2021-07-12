@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
         '/dashboard': (BuildContext context) =>
             DashboardPage(title: 'Dashboard'),
         '/profile': (BuildContext context) => ProfilePage(title: 'Perfil'),
-        '/demands': (BuildContext context) => DemandsPage(title: 'Demandas'),
+        '/demands': (BuildContext context) => DemandsPage(),
         '/history': (BuildContext context) => HistoryPage(title: 'Histórico'),
         '/schedules': (BuildContext context) => SchedulesPage(),
       },

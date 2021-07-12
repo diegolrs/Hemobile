@@ -44,7 +44,7 @@ class LandingPage extends StatelessWidget {
                     height: 50,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        primary: Colors.red,
+                        primary: Theme.of(context).accentColor,
                         backgroundColor: Colors.white,
                       ),
                       onPressed: () => Navigator.pushNamed(
@@ -61,7 +61,7 @@ class LandingPage extends StatelessWidget {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         primary: Colors.white,
-                        backgroundColor: Colors.red,
+                        backgroundColor: Theme.of(context).accentColor,
                       ),
                       onPressed: () => Navigator.pushNamed(
                         context,

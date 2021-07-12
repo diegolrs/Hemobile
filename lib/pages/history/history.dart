@@ -1,4 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hemobile/models/donation_model.dart';
+import 'package:hemobile/models/user_model.dart';
+import 'package:localstorage/localstorage.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key, required String title}) : super(key: key);
@@ -8,6 +12,35 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  final LocalStorage _userStorage = new LocalStorage('user_data');
+
+  List<DonationModel> donationsList = [];
+  bool _loading = true;
+
+  _doAsync() async {
+    final userStorage = await _userStorage.getItem('user');
+    UserModel user = UserModel.fromJson(userStorage);
+
+    final response = await Dio()
+        .get('https://hemobile.herokuapp.com/donations/history/${user.uuid}');
+
+    print(response.data);
+
+    setState(() {
+      donationsList = (response.data as List)
+          .map((x) => DonationModel.fromJson(x))
+          .toList();
+
+      _loading = false;
+    });
+  }
+
+  @override
+  initState() {
+    _doAsync();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,18 +57,31 @@ class _HistoryPageState extends State<HistoryPage> {
       body: Column(
         children: [
           HistoryHeader(),
-          DonationText(
-            date: '19/07/2018',
-          ),
-          DonationText(
-            date: '23/02/2019',
-          ),
-          DonationText(
-            date: '18/11/2020',
-          ),
-          DonationText(
-            date: '19/04/2021',
-          ),
+          _loading
+              ? CircularProgressIndicator(
+                  color: Theme.of(context).accentColor,
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      final donation = donationsList[index];
+
+                      return ListTile(
+                        leading: Icon(
+                          Icons.bloodtype,
+                          color: Theme.of(context).accentColor,
+                        ),
+                        title: Text(donation.bloodCenterName),
+                        subtitle: Text(donation.date),
+                        trailing: Icon(
+                          Icons.beenhere,
+                          color: Colors.green,
+                        ),
+                      );
+                    },
+                    itemCount: donationsList.length,
+                  ),
+                )
         ],
       ),
     );
@@ -83,7 +129,7 @@ class HistoryHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 900,
-      height: 200,
+      height: 150,
       child: Column(
         children: [
           Icon(

@@ -1,13 +1,36 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hemobile/models/blood_center_model.dart';
+import 'package:hemobile/pages/demands/donate.dart';
 
 class DemandsPage extends StatefulWidget {
-  const DemandsPage({Key? key, required String title}) : super(key: key);
-
   @override
   _DemandsPageState createState() => _DemandsPageState();
 }
 
 class _DemandsPageState extends State<DemandsPage> {
+  List<BloodCenterModel> bloodCentersList = [];
+  bool _loading = true;
+
+  _doAsync() async {
+    final response =
+        await Dio().get('https://hemobile.herokuapp.com/blood-centers');
+
+    setState(() {
+      bloodCentersList = (response.data as List)
+          .map((x) => BloodCenterModel.fromJson(x))
+          .toList();
+
+      _loading = false;
+    });
+  }
+
+  @override
+  initState() {
+    _doAsync();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,53 +44,59 @@ class _DemandsPageState extends State<DemandsPage> {
         ),
         shadowColor: Colors.transparent,
       ),
-      body: Column(
-        children: [
-          DemandsHeader(),
-          Expanded(
-            child: ListView(
+      body: _loading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).accentColor,
+              ),
+            )
+          : Column(
               children: [
-                HemocentroTile(
-                  name: 'Hemocentro Cabedelo',
-                  description: 'Joaquim Junior precisa de sangue',
-                ),
-                HemocentroTile(
-                  name: 'Hemocentro Bayeux',
-                  description: '5/25 - A, B, O',
-                ),
-                HemocentroTile(
-                  name: 'Hemocentro João Pessoa',
-                  description: '19/22 - A, O',
-                ),
-                HemocentroTile(
-                  name: 'Hemocentro Santa Rita',
-                  description: 'Evento do Hemocentro de Santa Rita',
-                ),
+                DemandsHeader(),
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return BloodCenterTile(
+                        bloodCenter: bloodCentersList[index],
+                      );
+                    },
+                    itemCount: bloodCentersList.length,
+                  ),
+                )
               ],
             ),
-          )
-        ],
-      ),
     );
   }
 }
 
-class HemocentroTile extends StatelessWidget {
-  final String name;
-  final String description;
+class BloodCenterTile extends StatelessWidget {
+  final BloodCenterModel bloodCenter;
 
-  const HemocentroTile({
+  const BloodCenterTile({
     Key? key,
-    required this.name,
-    required this.description,
+    required this.bloodCenter,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(Icons.location_city),
-      title: Text(name),
-      subtitle: Text(description),
+      leading: Icon(
+        Icons.location_city,
+        color: Theme.of(context).accentColor,
+      ),
+      title: Text(bloodCenter.name),
+      subtitle: Text(bloodCenter.address),
+      trailing: Icon(
+        Icons.arrow_right,
+        color: Theme.of(context).accentColor,
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DonatePage(bloodCenter: bloodCenter)),
+        );
+      },
     );
   }
 }
@@ -81,7 +110,7 @@ class DemandsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 900,
-      height: 200,
+      height: 150,
       child: Column(
         children: [
           Icon(
